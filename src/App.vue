@@ -1,28 +1,42 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="container">
+    <Header :user="user" />
+    <ReposList :repos="repos" />
   </div>
 </template>
-
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import axios from "axios";
+import Header from "./components/Header";
+import ReposList from "./components/ReposList";
 export default {
-  name: 'App',
+  name: "App",
+  data: () => ({
+    user: {},
+    reposURL: "",
+    repos: []
+  }),
   components: {
-    HelloWorld
+    Header,
+    ReposList
+  },
+  mounted() {
+    this.getUserInfo();
+    this.getReposFromUser();
+  },
+  methods: {
+    getUserInfo: async function() {
+      const response = await axios.get("https://api.github.com/users/laravel");
+      this.user = await response.data;
+    },
+    getReposFromUser: async function() {
+      const { data } = await axios.get(
+        "https://api.github.com/users/laravel/repos",
+        {
+          params: { per_page: 5 }
+        }
+      );
+      this.repos = data;
+    }
   }
-}
+};
 </script>
-
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
