@@ -32,7 +32,9 @@
             <i class="fas fa-eye"></i> {{ repo.watchers_count }}
           </a>
 
-          <a class="hoverable-link text-secondary" href="">Updated {{ timeSince(repo.updated_at) }} ago</a>
+          <a class="hoverable-link text-secondary" href=""
+            >Updated {{ timeSince(repo.updated_at) }} ago</a
+          >
         </div>
       </div>
     </div>

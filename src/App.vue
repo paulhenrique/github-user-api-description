@@ -6,7 +6,7 @@
   </div>
 </template>
 <script>
-import axios from "axios";
+import github from "./services/github";
 import Header from "./components/Header";
 import ReposList from "./components/ReposList";
 export default {
@@ -26,16 +26,13 @@ export default {
   },
   methods: {
     getUserInfo: async function() {
-      const response = await axios.get("https://api.github.com/users/laravel");
+      const response = await github("");
       this.user = await response.data;
     },
     getReposFromUser: async function() {
-      const { data } = await axios.get(
-        "https://api.github.com/users/laravel/repos",
-        {
-          params: { per_page: 5, page: 4 }
-        }
-      );
+      const { data } = await github.get("/repos", {
+        params: { per_page: 5, page: 4 }
+      });
       this.repos = data;
     }
   }
