@@ -1,5 +1,16 @@
 <template>
-  <div class="container">
+  <div class="container" v-if="loading">
+    <div class="row min-vh-100 justify-content-center align-items-center">
+      <div
+        class="spinner-grow text-secondary"
+        role="status"
+        style="width: 5rem; height: 5rem;"
+      >
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
+  </div>
+  <div class="container" v-else>
     <Header :user="user" />
     <h4 class="mt-5 mb-3">Repositórios</h4>
     <ReposList :repos="repos" />
@@ -20,6 +31,7 @@ export default {
   name: "App",
   data: () => ({
     user: {},
+    loading: true,
     reposURL: "",
     repos: [],
     currentPage: 1,
@@ -38,16 +50,15 @@ export default {
     getUserInfo: async function() {
       const response = await github("");
       this.user = await response.data;
+      this.loading = false;
     },
     getReposFromUser: async function() {
       const { data } = await github.get("/repos", {
         params: { per_page: this.itemsPerPage, page: this.currentPage }
       });
-      console.log(this.currentPage, data);
       this.repos = data;
     },
     updateCurrentPage: function(page) {
-      console.log(page);
       this.currentPage = page;
       this.getReposFromUser();
     }

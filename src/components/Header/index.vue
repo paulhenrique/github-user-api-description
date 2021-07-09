@@ -10,12 +10,18 @@
           />
         </div>
         <div class="col">
-          <a :href="`${user.html_url}`" class="hoverable-link text-dark">
+          <a
+            :href="`${user.html_url}`"
+            class="hoverable-link text-dark"
+            title="Ver no github"
+            target="_blank"
+          >
             <h1>{{ user.name }}</h1>
           </a>
           <a
             target="_blank"
             rel="noreferrer"
+            title="Ver repositórios no github"
             :href="`${user.html_url}?tab=repositories`"
             class="btn btn-faded btn-sm"
           >
@@ -24,6 +30,7 @@
           <a
             target="_blank"
             rel="noreferrer"
+            title="Ver blog"
             :href="`${user.blog}`"
             class="btn btn-faded btn-sm"
           >
@@ -33,6 +40,7 @@
           <a
             target="_blank"
             rel="noreferrer"
+            title="Ver twitter do usuário"
             :href="`https://twitter.com/${user.twitter_username}`"
             class="btn btn-faded btn-sm"
           >
