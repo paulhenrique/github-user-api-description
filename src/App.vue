@@ -1,6 +1,7 @@
 <template>
   <div class="container">
     <Header :user="user" />
+    <h4 class="mt-5 mb-3">Repositórios</h4>
     <ReposList :repos="repos" />
   </div>
 </template>
@@ -32,7 +33,7 @@ export default {
       const { data } = await axios.get(
         "https://api.github.com/users/laravel/repos",
         {
-          params: { per_page: 5 }
+          params: { per_page: 5, page: 4 }
         }
       );
       this.repos = data;
