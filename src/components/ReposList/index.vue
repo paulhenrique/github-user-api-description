@@ -3,7 +3,7 @@
     <div
       class="mb-5 card shadow-lg border-0 p-3"
       v-for="repo in repos"
-      :key="repo"
+      :key="repo.id"
     >
       <div class="row">
         <div class="col">
